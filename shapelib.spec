@@ -4,7 +4,7 @@
 #
 Name     : shapelib
 Version  : 1.5.0
-Release  : 1
+Release  : 2
 URL      : https://github.com/OSGeo/shapelib/archive/v1.5.0.tar.gz
 Source0  : https://github.com/OSGeo/shapelib/archive/v1.5.0.tar.gz
 Summary  : C API for processing ESRI Shapefiles
@@ -60,36 +60,38 @@ license components for the shapelib package.
 
 %prep
 %setup -q -n shapelib-1.5.0
+cd %{_builddir}/shapelib-1.5.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1560969626
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1604357642
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %autogen --disable-static
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1560969626
+export SOURCE_DATE_EPOCH=1604357642
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/shapelib
-cp COPYING %{buildroot}/usr/share/package-licenses/shapelib/COPYING
+cp %{_builddir}/shapelib-1.5.0/COPYING %{buildroot}/usr/share/package-licenses/shapelib/df97bdf33b01f9ed42a799dd3ed7a1599dd0cb9d
+cp %{_builddir}/shapelib-1.5.0/web/license.html %{buildroot}/usr/share/package-licenses/shapelib/1a5252fb5fb780f20bf938aba580e29ba0daffee
 %make_install
 
 %files
@@ -120,7 +122,7 @@ cp COPYING %{buildroot}/usr/share/package-licenses/shapelib/COPYING
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/*.h
+/usr/include/shapefil.h
 /usr/lib64/libshp.so
 /usr/lib64/pkgconfig/shapelib.pc
 
@@ -131,4 +133,5 @@ cp COPYING %{buildroot}/usr/share/package-licenses/shapelib/COPYING
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/shapelib/COPYING
+/usr/share/package-licenses/shapelib/1a5252fb5fb780f20bf938aba580e29ba0daffee
+/usr/share/package-licenses/shapelib/df97bdf33b01f9ed42a799dd3ed7a1599dd0cb9d
