@@ -7,7 +7,7 @@
 #
 Name     : shapelib
 Version  : 1.6.0
-Release  : 3
+Release  : 4
 URL      : https://github.com/OSGeo/shapelib/archive/v1.6.0/shapelib-1.6.0.tar.gz
 Source0  : https://github.com/OSGeo/shapelib/archive/v1.6.0/shapelib-1.6.0.tar.gz
 Summary  : C API for processing ESRI Shapefiles
